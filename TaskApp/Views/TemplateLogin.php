@@ -12,8 +12,6 @@
 
     <link href="/css/style.css" rel="stylesheet">
 
-    <link href="/css/jquery-ui-1.10.2.custom.css" rel="stylesheet">
-
 </head>
 
 <body class=" top-navigation">
@@ -83,10 +81,6 @@
 
     <!-- Custom and plugin javascript -->
     <script src="/js/inspinia.js"></script>
-
-
-    <script src="/js/jquery-ui-1.10.2.custom.min.js"></script>
-
 
 </body>
 

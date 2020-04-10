@@ -37,22 +37,25 @@ class Db
         return true;
     }
 
-    public function execute($query)
+    public function execute($query, $get_rows = false)
     {
         if($query == '')
             return false;
 
-        $result = array();
-        $q=mysqli_query($this->link,$query);
+        $data = array();
+        $result=mysqli_query($this->link,$query);
         if(mysqli_errno($this->link)>0){
             $this->error = mysqli_errno($this->link);
             return false;
         }
+        if($get_rows==true){
+            return mysqli_num_rows($result);
+        }
         if( strpos($query,'SELECT') !== FALSE ){
-            while ($row=mysqli_fetch_assoc($q)){
-                $result[]=$row;
+            while ($row=mysqli_fetch_assoc($result)){
+                $data[]=$row;
             }
         }
-        return $result;
+        return $data;
     }
 }

@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Войти" name="btn" class="btn btn-info">
+                <input type="submit" value="Enter" name="btn" class="btn btn-info">
                 <input type="button" onclick="document.location='/main/';" value="Back" name="btn" class="btn btn-warning">
             </td>
         </tr>
