@@ -1,17 +1,29 @@
-    <table>
+<table class="table">
     <thead>
-        <td>Name</td>
-        <td>E-mail</td>
-        <td>Task</td>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Task</th>
+        <th>Completed</th>
+        <th>Edited</th>
+    </tr>
     </thead>
-<?php
-    foreach($data as $v){
+    <tbody>
+
+    <?php
+    foreach($data['db'] as $v){
         echo "<tr>";
+        echo "<td>{$v['id']}</td>";
         echo "<td>{$v['name']}</td>";
         echo "<td>{$v['email']}</td>";
         echo "<td>{$v['task']}</td>";
+        echo "<td>{$v['completed']}</td>";
+        echo "<td>{$v['edited']}</td>";
         echo "</tr>";
     }
-?>
+    ?>
 
-    </table>
+    </tbody>
+</table>
+

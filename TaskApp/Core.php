@@ -29,10 +29,10 @@ class Core
         require_once $file;
 
         $file = RT.DS.'TaskApp\Models'.DS.$controller_name.'.php';
-        if(!file_exists($file)){
-            throw new \Exception('Model File not found:'.$file);
+        if(file_exists($file)){
+            require_once $file;
         }
-        require_once $file;
+
 
         if(!class_exists("\\Controllers\\".ucfirst($controller_name))){
             throw new \Exception('Controller Class not found');

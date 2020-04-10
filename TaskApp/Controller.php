@@ -15,6 +15,7 @@ class Controller {
         if(class_exists($model_name)){
             $this->model = new $model_name;
         }
+        session_start();
 
     }
 

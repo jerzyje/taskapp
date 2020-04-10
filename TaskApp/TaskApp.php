@@ -25,7 +25,9 @@ class TaskApp
     public static function load_class ($class_name)
     {
         $class_name = str_replace('\\', DS, $class_name);
-        require_once RT.DS.$class_name.'.php';
+        if(file_exists(RT.DS.$class_name.'.php')){
+            require_once RT.DS.$class_name.'.php';
+        }
     }
 
     public static function handle_exception (Throwable $e)
