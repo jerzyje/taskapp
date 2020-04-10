@@ -2,38 +2,49 @@
 
 namespace TaskApp;
 
-//use TaskApp;
-
 class Db
 {
-    public $sql;
-    private $settings = array(
+    private $link;
 
+    private $settings = array(
+        'host' => 'localhost',
+        'user' => 'root',
+        'pass' => 'root',
+        'db'=> 'taskapp'
     );
 
     public function __construct()
     {
-
-        $sql = $this->connect();
-        //$this->pdo = new \PDO($settings['dsn'], $settings['user'], $settings['pass'], null);
-
+        $this->connect();
     }
 
-    protected function connect()
+    public function connect()
     {
-        return null;
-    }
+        $this->link=mysqli_connect(
+            $this->settings['host'],
+            $this->settings['user'],
+            $this->settings['user'],
+            $this->settings['db']
+        );
 
-    public function execute($query, array $params=null)
-    {
-
-        if(is_null($params)){
-            //$stmt = $this->sql->query($query);
-            //return $stmt->fetchAll();
+        if ($this->link===false){
+            throw new \Exception('DB connection error');
         }
-        //$stmt = $this->pdo->prepare($query);
-        //$stmt->execute($params);
-        //return $stmt->fetchAll();
 
+        mysqli_set_charset($this->link,'utf8');
+        return true;
+    }
+
+    public function execute($query)
+    {
+        if($query == '')
+            return false;
+
+        $result = array();
+        $q=mysqli_query($this->link,$query);
+        while ($row=mysqli_fetch_assoc($q)){
+            $result[]=$row;
+        }
+        return $result;
     }
 }

@@ -5,42 +5,48 @@ use TaskApp;
 class Core
 {
 
-    public $defaultControllerName = 'Main';
+    private $default_controller = 'Main';
 
-    public $defaultActionName = "action_index";
+    private $default_action = "action_index";
 
     public function launch()
     {
 
-        list($controllerName, $actionName, $params) = TaskApp::$router->resolve();
-        echo $this->launchAction($controllerName, $actionName, $params);
+        list($controller_name, $action_name, $params) = TaskApp::$router->resolve();
+        echo $this->launch_action($controller_name, $action_name, $params);
 
     }
 
-    public function launchAction($controllerName, $actionName, $params)
+    public function launch_action($controller_name, $action_name, $params)
     {
 
-        $controllerName = empty($controllerName) ? $this->defaultControllerName : ucfirst($controllerName);
+        $controller_name = empty($controller_name) ? $this->default_controller : ucfirst($controller_name);
 
-        $file = RT.DS.'Controllers'.DS.$controllerName.'.php';
+        $file = RT.DS.'TaskApp\Controllers'.DS.$controller_name.'.php';
         if(!file_exists($file)){
-            throw new \Exception('File not found:'.$file);
+            throw new \Exception('Controller File not found:'.$file);
         }
         require_once $file;
 
-        if(!class_exists("\\Controllers\\".ucfirst($controllerName))){
-            throw new \Exception('Class not found');
+        $file = RT.DS.'TaskApp\Models'.DS.$controller_name.'.php';
+        if(!file_exists($file)){
+            throw new \Exception('Model File not found:'.$file);
+        }
+        require_once $file;
+
+        if(!class_exists("\\Controllers\\".ucfirst($controller_name))){
+            throw new \Exception('Controller Class not found');
         }
 
-        $controllerName = "\\Controllers\\".ucfirst($controllerName);
-        $controller = new $controllerName;
-        $actionName = empty($actionName) ? $this->defaultActionName : $actionName;
+        $controller_name = "\\Controllers\\".ucfirst($controller_name);
+        $controller = new $controller_name;
+        $action_name = empty($action_name) ? $this->default_action : $action_name;
 
-        if (!method_exists($controller, $actionName)){
-            throw new \Exception('Method not exist');
+        if (!method_exists($controller, $action_name)){
+            throw new \Exception('Controller Method not exist');
         }
 
-        return $controller->$actionName($params);
+        return $controller->$action_name($params);
 
     }
 

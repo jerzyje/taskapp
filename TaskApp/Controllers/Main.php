@@ -1,10 +1,21 @@
 <?php
-namespace TaskApp;
+namespace Controllers;
 
-class Main extends Controller
+class Main extends \TaskApp\Controller
 {
-    function action_index()
+    public function action_index($params)
     {
-        //$this->view->generate('main_view.php', 'template_view.php');
+        $data = null;
+        if($this->model !== null){
+            $data = $this->model->get_data();
+        }
+
+        $this->view->generate_html('Main', 'Template', $data);
+    }
+
+    public function some($params){
+        var_dump($params);
+        //echo "<br>==<br>";
+
     }
 }

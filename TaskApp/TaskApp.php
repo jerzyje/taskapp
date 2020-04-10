@@ -9,9 +9,9 @@ class TaskApp
 
     public static function init()
     {
-        spl_autoload_register(['static','loadClass']);
+        spl_autoload_register(['static','load_class']);
         static::app_start();
-        set_exception_handler(['TaskApp','handleException']);
+        set_exception_handler(['TaskApp','handle_exception']);
     }
 
     public static function app_start()
@@ -22,13 +22,13 @@ class TaskApp
 
     }
 
-    public static function loadClass ($className)
+    public static function load_class ($class_name)
     {
-        $className = str_replace('\\', DS, $className);
-        require_once RT.DS.$className.'.php';
+        $class_name = str_replace('\\', DS, $class_name);
+        require_once RT.DS.$class_name.'.php';
     }
 
-    public static function handleException (Throwable $e)
+    public static function handle_exception (Throwable $e)
     {
         echo "Error: " , $e->getMessage(), "\n";
     }

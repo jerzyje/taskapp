@@ -9,9 +9,17 @@ class Controller {
     function __construct()
     {
         $this->view = new View();
+
+        $model_name = explode('\\',get_called_class())[1];
+        $model_name = "\\Models\\".ucfirst($model_name);
+        if(class_exists($model_name)){
+            $this->model = new $model_name;
+        }
+
     }
 
-    function action_index()
+    function action_index($params)
     {
+
     }
 }
